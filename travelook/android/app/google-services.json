@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1080559858850",
+    "project_id": "travelook-315413",
+    "storage_bucket": "travelook-315413.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080559858850:android:e7c8ae1eedf367bbe0d3fb",
+        "android_client_info": {
+          "package_name": "com.travelook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080559858850-h1sta3tmcftehli9h25rq512rvmiadls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travelook",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1080559858850-soopqajmvo5epda70hbiv5kq039oi3j8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1IJO3SczdNHYbY3D9kL9ctbwP0Utftvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080559858850-soopqajmvo5epda70hbiv5kq039oi3j8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
