@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from '../../../pages/home/screen/Home1'
 import AllHotelScreen from '../../../pages/home/screen/AllHotels'
-import LoadingScreen from '../../../pages/onboardinng_login_signup/screen/LoadingScreen'
+import LoadingScreen from '../../../commons/setLoading';
 
 const index = () => {
     const Stack = createStackNavigator();

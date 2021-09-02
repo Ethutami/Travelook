@@ -2,24 +2,20 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-
-import User_icon from 'react-native-vector-icons/Feather'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import User_icon from 'react-native-vector-icons/Feather'
 import { destination, end_date, guest, start_date } from '../../../../redux/action/actionetc';
 import { get_all_user_review } from '../../../../redux/action/actionrivew';
 
 const index = ({label}) => {
     const navigation = useNavigation();
     const dispatch = useDispatch()
-
     let nama;
     let callNavigation;
     if(label === 'Account'){
         nama = 'user'
-        callNavigation = ()=> {
-                navigation.navigate('Account')    
-        }
+        callNavigation = ()=> {navigation.navigate('Account')}
     }else if(label === 'Notification'){
         nama = 'bell'
         callNavigation = ()=> {navigation.navigate('Notification')}
@@ -31,8 +27,7 @@ const index = ({label}) => {
                 navigation.navigate('Review')
             } catch (error) {
                 console.log('there is an error when trying navigate to user review');
-            }
-        }
+            }}
     }else if(label === 'Logout'){
         nama ='log-out'
         callNavigation = async ()=> {
@@ -44,13 +39,10 @@ const index = ({label}) => {
                 await AsyncStorage.removeItem('access_token')
                 navigation.navigate('Login')
             } catch (error) {
-            }
-        }
-            
-    }
+            }}}
 
     return (
-        <View style={{flexDirection:'row', padding:20, alignItems:'center', marginTop:8}}>
+        <View style={styles.container}>
             <User_icon name={nama} size={20} color='#C2C3C6'/>
             <TouchableOpacity onPress={()=> {callNavigation()}}>
                 <Text style={styles.label}>{label}</Text>
@@ -59,12 +51,18 @@ const index = ({label}) => {
     )
 }
 
-export default index
-
 const styles = StyleSheet.create({
+    container: {
+        marginTop:8,
+        padding:20, 
+        flexDirection:'row', 
+        alignItems:'center', 
+    },
     label:{
         marginHorizontal:20, 
         fontSize:18, 
         color:'#3E3E3E'
     }
 })
+
+export default index

@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { useSelector } from 'react-redux'
-import logo from '../../../asset/image/logo.png'
+import commonLogo from '../asset/image/logo.png'
 
 const LoadingScreen = ({navigation}) => {
     const {toPage} = useSelector(state => state.hotelReducer)
-    //console.log(toPage);
     useEffect(() => {
         setTimeout(() => {
             toPage === 'AllHOtelPage' ? navigation.navigate('AllHotelPage'):
@@ -15,7 +14,7 @@ const LoadingScreen = ({navigation}) => {
     return (
         <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
             <Image 
-                source={logo} 
+                source={commonLogo} 
                 style={{width:'30%', height:'14%', resizeMode:'stretch'}}/>
         </View>
     )

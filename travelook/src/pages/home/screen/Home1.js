@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import moment from 'moment';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-import bckground from '../image/bckground.png'
-import InputComponent from '../component/selectInput/inputHome1'
-import ButtonSearch from '../component/button/buttonSearch'
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux'
+
 import { request_order_list } from '../../../redux/action/actionReservation';
 import { request_data_user } from '../../../redux/action/actionUser';
 
+import bckground from '../image/bckground.png'
+import InputComponent from '../component/selectInput/inputHome1'
+import ButtonSearch from '../component/button/buttonSearch'
 
 const Home1 = () => {
     const dispatch = useDispatch()
@@ -69,27 +70,19 @@ const Home1 = () => {
     useEffect(() => {
         try {
             if (endDate?.length !== 0) {
-              
-               // month2 > b && day2 < a ? setHkn(false) : setHkn(true)
-                if (month1 === month2 && day1 > day2 ) {
-                    setHkn(true) 
-                }else if (month1 === month2 && day1 === day2 ) {
-                    setHkn(true) 
-                }else if (hours !== 24 ){
-                    setHkn(true)
-                } else{
-                    setHkn(false)
-                }
+                if (month1 === month2 && day1 > day2 ) setHkn(true) 
+                else if (month1 === month2 && day1 === day2 ) setHkn(true) 
+                else if (hours !== 24 ) setHkn(true)
+                else setHkn(false)
             }
         } catch (error) {  }
    }, [month2, day2,])
    
-   useEffect(() => {
+    useEffect(() => {
     dispatch(request_order_list())
     dispatch(request_data_user())
    }, [])
 
-   //console.log(destination, startDate, endDate, guest);
     return (
         <View style={{flex:1, }}>
             <ImageBackground source={bckground} resizeMode="stretch" style={{flex:1,alignItems:'center',}}>
@@ -123,18 +116,17 @@ export default Home1
 
 const styles = StyleSheet.create({
     txt:{
+        marginTop:'15%',
         fontSize:24,
         fontWeight:'bold', 
         color:'#1E1E1E', 
-        marginTop:'15%',
     },
     cardWrapped:{
-        width:327, 
-        // height:'70%', 
-        backgroundColor:'#ffffff', 
         marginTop:24,
+        marginBottom:161,
         marginHorizontal:24,
-        marginBottom:161
+        width:327, 
+        backgroundColor:'#ffffff', 
 
     }
 })

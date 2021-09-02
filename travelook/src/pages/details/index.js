@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Image, ScrollView, StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux';
 
+import logo from '../../asset/image/logo.png'
 import Header from '../../component/header'
 import CardImage from '../../component/card/CardImage'
 import AmenitieShortList from '../../component/detailList/amenitie/amenitie'
 import Review from '../../component/detailList/review'
-import GoogleMap from '../../component/detailList/googleMap'
 import About from '../../component/detailList/about/about'
 import PriceComponent from '../../component/detailList/IDR'
-import logo from '../../asset/image/logo.png'
-
-import { useSelector, useDispatch } from 'react-redux';
-
 
 const index = ({navigation}) => {
     const {details} = useSelector(state => state.hotelReducer)
     const food = details?.foodandbeverage 
     const service = details?.service
-    // console.log(hotelReducer);
     if (details !== {} || details !== undefined) {
         return (
             <>
             <ScrollView 
-                style={{flex:1, backgroundColor:'#ffffff', marginBottom:20}} 
+                style={styles.dataExistContainer} 
                 showsVerticalScrollIndicator={false}>
                 <Header 
                     page='FILTER&SORT' 
@@ -47,29 +43,38 @@ const index = ({navigation}) => {
                     />
                     }
                     <Review/>
-                    {/* <GoogleMap/> */}
                     <About about={details?.summary}/>
                 </View>
             </ScrollView>
-                <PriceComponent IDR={details?.price} txtBtn='Book Now'/>
+            <PriceComponent IDR={details?.price} txtBtn='Book Now'/>
             </>
         )
-        
     } else {
         return(
-            <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                <Image 
-                    source={logo} 
-                    style={{width:'30%', height:'14%', resizeMode:'stretch'}}/>
+            <View style={styles.dataEmptyContainer}>
+                <Image source={logo} style={styles.image}/>
             </View>
         )
     }
-    
-
-   
    
 }
 
-export default index
+const styles = StyleSheet.create({
+    dataExistContainer: {
+        flex:1, 
+        marginBottom:20,
+        backgroundColor:'#ffffff', 
+    },
+    dataEmptyContainer: {
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center',
+    },
+    image: {
+        width:'30%', 
+        height:'14%', 
+        resizeMode:'stretch',
+    },
+})
 
-const styles = StyleSheet.create({})
+export default index

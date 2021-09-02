@@ -16,35 +16,35 @@ const detailCkInCkout = ({name, checkin, checkout, guest, facility}) => {
     const [isVisible, setIsVisible] = useState()
     const [label, setLabel] = useState()
     return (
-        <View style={{flex:1, marginTop:10}}>
+        <View style={styles.container}>
             <View style={{margin:10}}>
             <Text style={styles.name}>{name}</Text>
-            <View style={{width:wp(100), backgroundColor:'#F3F3F3'}}>
-                <View style={{flexDirection:'row',marginBottom:10,alignItems:'center'}}>
+            <View style={styles.checkDateWrap}>
+                <View style={styles.checkinDateWrap}>
                     <Calendar_icon name='calendar-arrow-right' size={20} color='#898B8F'/>
-                    <Text style={{fontSize:15, marginHorizontal:10, width:'35%'}}>Check-in</Text>
-                    <Text style={{fontSize:15,  width:'45%',}}>{checkin}, from 12:00</Text>
+                    <Text style={styles.checkinText}>Check-in</Text>
+                    <Text style={styles.checkin}>{checkin}, from 12:00</Text>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={styles.checkoutDateWrap}>
                     <Calendar_icon name='calendar-arrow-left' size={20} color='#898B8F'/>
-                    <Text style={{fontSize:15, marginHorizontal:10, width:'35%'}}>Check-out</Text>
-                    <Text style={{fontSize:15,  width:'45%',}}>{checkout}, before 12:00</Text>
+                    <Text style={styles.checkoutText}>Check-out</Text>
+                    <Text style={styles.checkout}>{checkout}, before 12:00</Text>
                 </View>
             </View>
             <View style={{marginVertical:20}}>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={styles.guestWrap}>
                     <Smile_icon name="smile" size={20} color='#898B8F'/>
-                    <Text style={{fontSize:15, marginHorizontal:10, width:'35%'}}>Guest(s)</Text>
-                    <Text style={{fontSize:15,  width:'45%',}}>{guest} person(s)</Text>
+                    <Text style={styles.guestText}>Guest(s)</Text>
+                    <Text style={styles.guest}>{guest} person(s)</Text>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center'}}>
+                <View style={styles.facilityWrap}>
                     <Feather_icon name="home" size={20} color='#898B8F'/>
-                    <Text style={{fontSize:15, marginHorizontal:10, width:'35%'}}>Facility</Text>
-                    <Text style={{fontSize:15,  width:'45%',}}>{facility}</Text>
+                    <Text style={styles.facilityText}>Facility</Text>
+                    <Text style={styles.facility}>{facility}</Text>
                 </View>
             </View>
             </View>
-            <View style={{borderBottomColor:'#E1E1E1', borderBottomWidth:1, marginVertical:10}}></View>
+            <View style={styles.horizontalLine}></View>
             <View style={{marginTop:15, marginHorizontal:10}}>
                 <View style={{flexDirection:'row'}}>
                     <File_icon name="filetext1" size={20} color='#2BB16A'/>
@@ -83,11 +83,76 @@ const detailCkInCkout = ({name, checkin, checkout, guest, facility}) => {
 export default detailCkInCkout
 
 const styles = StyleSheet.create({
-    name:
-    {
-        color:'#3E3E3E', 
+    container: {
+        flex:1, 
+        marginTop:10,
+    },
+    name: {
+        marginBottom:15,
         fontWeight:'bold', 
         fontSize:18, 
-        marginBottom:15
+        color:'#3E3E3E', 
+    },
+    checkDateWrap: {
+        width:wp(100), 
+        backgroundColor:'#F3F3F3',
+    },
+    checkinDateWrap: {
+        marginBottom:10,
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    checkinLabel: {
+        marginHorizontal:10, 
+        width:'35%',
+        fontSize:15, 
+    },
+    checkin: {
+        width:'45%',
+        fontSize:15,  
+    },
+    checkoutDateWrap: {
+        flexDirection:'row', 
+        alignItems:'center',
+    },
+    checkoutLabel: {
+        marginHorizontal:10, 
+        width:'35%',
+        fontSize:15, 
+    },
+    checkout: {
+        width:'45%',
+        fontSize:15,  
+    },
+    guestWrap: {
+        flexDirection:'row', 
+        alignItems:'center',
+    },
+    guestText: {
+        marginHorizontal:10, 
+        width:'35%',
+        fontSize:15, 
+    },
+    guest: {
+        width:'45%',
+        fontSize:15,  
+    },
+    facilityWrap: {
+        flexDirection:'row', 
+        alignItems:'center',
+    },
+    facilityText: {
+        marginHorizontal:10, 
+        width:'35%',
+        fontSize:15, 
+    },
+    facility: {
+        width:'45%',
+        fontSize:15, 
+    },
+    horizontalLine: {
+        marginVertical:10,
+        borderBottomWidth:1, 
+        borderBottomColor:'#E1E1E1', 
     },
 })

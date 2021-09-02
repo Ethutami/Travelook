@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Header from '../../../component/header'
 import CardListHotel from '../../../component/card/CardListHotel'
-import { testingdata, toHomePage } from '../../../redux/action/actionetc'
-import { TextInput } from 'react-native'
+import { toHomePage } from '../../../redux/action/actionetc'
 
 const AllHotels = () => {
     const dispatch = useDispatch()
@@ -17,14 +16,6 @@ const AllHotels = () => {
     return (
         <View style={{flex:1}}>
             <Header page='single_label' label='All Hotel'/>
-            {/* <TextInput
-            placeholder='tes'
-            value={tryPersist}
-            onChangeText={(txt)=>{
-                dispatch(testingdata(txt))
-            }}
-            />
-            <Text>{tryPersist}</Text> */}
             <CardListHotel />
         </View>
     )

@@ -4,7 +4,6 @@ import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { onChange } from 'react-native-reanimated'
 
 const index = ({label, label2, placeholder, value, changeTxt}) => {
-    //console.log(typeof placeholder);
     return (
         <KeyboardAvoidingView style={{}} enabled={false} >
             

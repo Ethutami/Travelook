@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { useDispatch } from 'react-redux';
 import CheckBox from '@react-native-community/checkbox';
-
-import label from '../image/name.png'
-import InputComponent from '../component/InputComponent'
-import ButtonSignup from '../../../component/button/black'
-import ButtonLogin from '../../../component/button/white'
-import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { request_data_register, request_data_user } from '../../../redux/action/actionUser';
 
-const RegisterScreen = ({navigation}) => {
+import { request_data_user } from '../../redux/action/actionUser';
+import commonLogo from '../../asset/image/name.png'
+import TextField from '../../component/TextField';
+import ButtonComponent from '../../component/button';
+
+export default function SignupPage({navigation}) {
     const dispatch = useDispatch()
     const [toggleCheckBox, setToggleCheckBox] = useState(false)
     const [dataRegist, setDataRegist] = useState({
@@ -21,8 +20,6 @@ const RegisterScreen = ({navigation}) => {
         password:'',
         confirmPassword:''
     })
- 
-
     const changeTxt =(txt, label)=>{
         if (label === 'First Name'){
             setDataRegist({...dataRegist, first_name:txt})
@@ -36,34 +33,34 @@ const RegisterScreen = ({navigation}) => {
             setDataRegist({...dataRegist, confirmPassword: txt})
         }
     }
-
     useEffect(() => {
-        console.log(dataRegist);
     }, [dataRegist])
 
     return (
-        <ScrollView style={{flex:1,}}>
-                <Image source={label} style={styles.label}/>
-                <Text style={styles.signup}>Sign Up</Text>                                      
-            <View style={styles.container}>
-                <View style={styles.inputWrapped}>
-                    <InputComponent  label='First Name' changeTxt={(txt, label)=> {changeTxt(txt, label)}}/>
-                    <InputComponent  label='Last Name' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
-                    <InputComponent  label='Email' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
-                    <InputComponent  label='Password' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
-                    <InputComponent  label='Confirm Password' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
+        <ScrollView style={styles.container}>
+            <Image source={commonLogo} style={styles.commonLogo}/>
+            <Text style={styles.signupText}>Sign Up</Text>    
+            <View style={styles.innerContainer}>
+                <View>
+                    <TextField  placeholder='First Name' changeTxt={(txt, label)=> {changeTxt(txt, label)}}/>
+                    <TextField  placeholder='Last Name' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
+                    <TextField  placeholder='Email' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
+                    <TextField  placeholder='Password' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
+                    <TextField  placeholder='Confirm Password' changeTxt={(txt, label)=>{changeTxt(txt, label)}}/>
                 </View>
-                <View style={{flexDirection:'row', alignItems:'center', marginTop:24}}>
+                <View style={styles.chackBoxtWrap}>
                     <CheckBox
                         disabled={false}
                         value={toggleCheckBox}
                         onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                    />
-                    <Text style={{marginStart:12, fontSize:14}}>I agree with Whiteboard’s terms & conditions</Text>
+                        />
+                    <Text style={styles.chackBoxtText}>I agree with Whiteboard’s terms & conditions</Text>
                 </View>
-                <ButtonSignup 
+                <ButtonComponent 
                     label='Sign Up' 
-                    register={()=>{
+                    backgroundColor = '#1E1E1E'  
+                    color = '#ffffff'
+                    register={() =>{
                         try {
                            const res =  axios({
                                 method: 'POST',
@@ -72,58 +69,71 @@ const RegisterScreen = ({navigation}) => {
                             })
                             .then((e)=>{
                                 AsyncStorage.setItem('access_token', e.data.token)
-                                //console.log(e.status);
                                 dispatch(request_data_user())
                                 navigation.navigate('TabMain', { screen: 'Next Stay' })
                             })
-                    } catch (error) {
-                            console.log('regist',error.response.data);
-                        }
-                    }}/>
+                    } catch (error) {}
+                   }}
+                    />
                 <View style={styles.alredyamember}>
                     <View style={styles.line}></View>
                     <Text>Already a member?</Text>
                     <View style={styles.line}></View>
                 </View>
-                <ButtonLogin label='Login' onPressButton='login'/>
+                <ButtonComponent 
+                    label='Login' 
+                    borderColor = '#1E1E1E'
+                    color= '#1E1E1E'
+                    toNavigate= 'Login'
+                    />
             </View>
         </ScrollView>
     )
 }
 
-export default RegisterScreen
-
 const styles = StyleSheet.create({
-    container:{
-        flex:1, 
-        backgroundColor:'#F3F3F3',
-        paddingHorizontal:16,
-        paddingBottom:6,
+    container: {
+        flex:1,
+        paddingHorizontal:16
     },
-    label:{
+    commonLogo:{
+        marginBottom: 60,
+        marginTop:52,
         width:96, 
         height:15, 
         resizeMode:'stretch',
-        marginBottom: 80,
-        marginTop:52,
-        marginStart:16,
     },
-    signup:{
+    signupText:{
+        marginStart:22,
         fontWeight:'bold',
         fontSize:28,
-        marginStart:22,
+    },
+    innerContainer:{
+        flex:1, 
+        marginBottom:20,
+        paddingHorizontal:16,
+        paddingBottom:6,
+        backgroundColor:'#F3F3F3',
+    },
+    chackBoxtWrap: {
+        marginTop:24,
+        flexDirection:'row', 
+        alignItems:'center', 
+    },
+    chackBoxtText: {
+        marginStart:12, 
+        fontSize:14,
     },
     alredyamember:{
-        alignItems:'center', 
         marginTop:46, 
-        flexDirection:'row', 
         width:'100%', 
+        flexDirection:'row', 
+        alignItems:'center', 
         justifyContent:'space-between'
     },
     line:{
-        borderBottomColor:'#E1E1E1', 
+        width:'25%',
         borderWidth:1, 
-        width:'25%'
+        borderBottomColor:'#E1E1E1', 
     }
-
 })

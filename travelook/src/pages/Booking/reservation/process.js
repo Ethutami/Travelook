@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, Image, Pressable, TouchableHighlight } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image, TouchableHighlight } from 'react-native'
 import {
     widthPercentageToDP as wp, 
     heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
-// import CountDown from 'react-native-countdown-component';
-import ImagePicker, { openCamera, openPicker } from 'react-native-image-crop-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
 import Antdesign from 'react-native-vector-icons/AntDesign'
 import Galery from 'react-native-vector-icons/MaterialIcons'
+
+import { upload_payment } from '../../../redux/action/actionReservation';
 import images from '../asset/image.png'
 import ButtonUpload from '../../../component/button/white'
 import ButtonConfirm from '../../../component/button/black'
 import CardImageOrder from '../../../component/card/cardImageOrder'
-import { useDispatch, useSelector } from 'react-redux';
-import { upload_payment } from '../../../redux/action/actionReservation';
-
-
 
 const process = ({switchOn}) => {
-    //console.log(switchOn);
     const dispatch = useDispatch()
-    const {order, payment} = useSelector(state => state.reservation)
+    const {order} = useSelector(state => state.reservation)
     const [modalVisible, setModalVisible] = useState(false);
     const [image, setImage] = useState({
         mime:'',
@@ -36,7 +33,6 @@ const process = ({switchOn}) => {
             cropping: true,
         })
         .then(images => {
-            //console.log(images);
             setImage({
                 mime: 'image/png',
                 path: images.path,
@@ -51,7 +47,6 @@ const process = ({switchOn}) => {
             height: 400,
             cropping: true,
         }).then(image => {
-            //console.log(image); 
             setImage({
                 mime: 'image/jpg',
                 path: image.path,
@@ -60,14 +55,13 @@ const process = ({switchOn}) => {
         setModalVisible(!modalVisible)
     }
 
-    //console.log(image, id);
     useEffect(() => {
         image.path !== '' && dispatch(upload_payment(id, image))
     }, [order, id, image]);
 
     return (
         <>
-            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1, backgroundColor:'#ffffff',}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
                 <View style={{marginHorizontal:18}}>
                     <Image source={images} style={styles.image}/>
                     <Text style={styles.txt1}>Your booking is waiting for confirmation. </Text>
@@ -127,47 +121,57 @@ const process = ({switchOn}) => {
 export default process
 
 const styles = StyleSheet.create({
+    container: {
+        flex:1, 
+        backgroundColor:'#ffffff',
+    },
     image:{
+        marginTop:hp(8),
+        marginBottom:hp(5),
         width:'45%', 
         height:hp(20), 
+        alignSelf:'center', 
         resizeMode:'stretch', 
-        alignSelf:'center', 
-        marginTop:hp(8),
-        marginBottom:hp(5)
     },
-    txt1:{alignSelf:'center', fontSize:14},
-    txt2:{alignSelf:'center', fontSize:14, marginBottom:24},
-    countDown:{
-        //backgroundColor:'#ffffff',
-        //borderColor:'#E1E1E1', 
-        //borderWidth:1, 
+    txt1:{
         alignSelf:'center', 
-        justifyContent:'center', 
+        fontSize:14
+    },
+    txt2:{
+        marginBottom:24,
+        alignSelf:'center', 
+        fontSize:14, 
+    },
+    countDown:{
         marginBottom:7, 
         width:277,
-        //height:34
+        alignSelf:'center', 
+        justifyContent:'center', 
     },
     uploadFile:{
+        marginTop:24,
         flexDirection:'row', 
         alignItems:'center', 
         justifyContent:'center', 
-        marginTop:24,
     },
-    uploadFileTxt:{color:'#4A84FA', fontSize:16},
+    uploadFileTxt:{
+        fontSize:16
+        color:'#4A84FA', 
+    },
     modalCenteredView:{
         marginTop:hp(10),
         marginHorizontal:wp(10),
         padding:30,
-        backgroundColor:'rgba(52, 52, 52, 0.9)',
-        borderRadius:8,
         flexDirection:'row',
         alignContent:'center',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        borderRadius:8,
+        backgroundColor:'rgba(52, 52, 52, 0.9)',
     },
     line:{
-        borderBottomColor:'#E1E1E1', 
-        borderBottomWidth:1, 
         marginBottom:24, 
         marginTop:14,
+        borderBottomWidth:1, 
+        borderBottomColor:'#E1E1E1', 
     },
 })

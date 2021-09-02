@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import StakHome from '../stakNavigation'
@@ -7,7 +7,6 @@ import OrdersScreen from '../../../pages/orders'
 import UserAccountScreen from '../../../pages/me/screen'
 import MaterialComunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
-
 
 const index = () => {
     const Tab = createBottomTabNavigator();

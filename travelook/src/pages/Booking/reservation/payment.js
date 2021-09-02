@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import RadioButtonRN from 'radio-buttons-react-native';
+import moment from 'moment';
 
 import PriceDetails from '../../../component/detailList/priceDetails'
 import ButtonContinue from '../../../component/button/black'
 import BookingDate from '../../../component/detailList/BookingDate'
-import moment from 'moment';
 
 const payment = () => {
     const {details} = useSelector(state => state. hotelReducer)
@@ -25,10 +25,12 @@ const payment = () => {
     const total = caculate - serviceFee
     const start_date = moment(startDate.startDate).format('ddd, DD MMM YYYY')
     const end_date = moment(endDate.endDate).format('ddd, DD MMM YYYY')
+
     return (
         <>
-        <ScrollView showsVerticalScrollIndicator={false} 
-            style={{flex:1, backgroundColor:'#ffffff'}}>
+        <ScrollView 
+            showsVerticalScrollIndicator={false} 
+            style={styles.container}>
             <View style={styles.paymentwrap}>
                 <Text style={styles.payment}>Payment Method</Text>
                 <Text style={{marginVertical:10, fontSize:14}}>Select on of this payment method</Text>
@@ -44,7 +46,7 @@ const payment = () => {
                 activeColor='#000000'
                 deactiveColor='#000000'
             />
-            <View style={{borderBottomColor:'#E1E1E1', borderBottomWidth:1, marginTop:25}}></View>
+            <View style={styles.horizontalLine}></View>
             <BookingDate
                 checkin={start_date}
                 checkout={end_date}
@@ -61,7 +63,7 @@ const payment = () => {
             />
             <Text style={{color:'#4A84FA', fontSize:16, marginHorizontal:10, marginTop:20}}>Pay with Bank Transfer</Text>
         </ScrollView>
-        <View style={{padding:10, backgroundColor:'#ffffff'}}>
+        <View style={styles.buttonContinue}>
             <ButtonContinue 
                 label='Pay >>' 
                 num={ payment ? 3 : 2} 
@@ -71,9 +73,12 @@ const payment = () => {
     )
 }
 
-export default payment
 
 const styles = StyleSheet.create({
+    container: {
+        flex:1, 
+        backgroundColor:'#ffffff',
+    },
     paymentwrap:{
         paddingHorizontal:16, 
         marginTop:16, 
@@ -84,4 +89,15 @@ const styles = StyleSheet.create({
         fontSize:16, 
         fontWeight:'bold',
     },
+    horizontalLine: {
+        marginTop:25,
+        borderBottomWidth:1, 
+        borderBottomColor:'#E1E1E1', 
+    },
+    buttonContinue: {
+        padding:10, 
+        backgroundColor:'#ffffff',
+    },
 })
+
+export default payment
